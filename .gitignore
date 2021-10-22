@@ -1,0 +1,8 @@
+#本文件用来设置工程GIT屏蔽文件
+.svn
+*
+!*.bat
+!.gitignore
+编译并拷贝jxui库.bat
+编译并拷贝mdb库.bat
+编译并拷贝pax_app_untity库.bat
