@@ -2,9 +2,9 @@
 REM 配置区==================================================
 REM 工程目录
 set prj_dir=..
-REM 编译工具链路径（prolin平台无需关注，runthos平台需要关注）
-set sdk_dir=
-REM 下载工具路径（不涉及下载的工程无需关注）
+REM SDK目录（注意路径不要有中文或者空格等符号）
+set sdk_dir=D:\software\SDK\prolin
+REM 下载工具路径（不涉及下载的工程无需关注）（注意路径不要有中文或者空格等符号）
 set loader_dir=D:\software\tool\pax\TermAssist\tools
 REM 下载信道的虚拟串口号（不涉及下载的工程无需关注）
 set com_index=5
@@ -25,6 +25,7 @@ set zip=%loader_dir%\7za
 set output_zip=%prj_dir%\pkg\%prj_name%.aip
 set zip_files_list=appinfo .\default\%prj_name% res\ data\ lib\
 set zip_add_files_list=appinfo .\default\%prj_name%
+set make=%sdk_dir%\sdk\tools\msys\bin\make
 REM 配置计算或默认配置区-------------
 
 
@@ -85,13 +86,12 @@ cd %cur_dir%
 goto:eof
 
 :func_prolin_xcb_op
-echo %*
 %xcb% connect com:COM%com_index%
 %xcb% %*
 goto:eof
 
 :func_prolin_build
-make %1
+%make% %1
 goto:eof
 
 REM 函数区-----------------------------------------
