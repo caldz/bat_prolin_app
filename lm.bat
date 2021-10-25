@@ -8,6 +8,8 @@ REM 下载工具路径（不涉及下载的工程无需关注）（注意路径�
 set loader_dir=D:\software\tool\pax\TermAssist\tools
 REM 下载信道的虚拟串口号（不涉及下载的工程无需关注）
 set com_index=5
+REM 设置应用执行程序名（如果工程名与执行程序名相同，此处不需要设置）
+set bin_name=
 REM 配置区---------------------------------------------------
 
 
@@ -18,13 +20,14 @@ set cur_dir=%cd%
 cd %prj_dir%
 set prj_dir=%cd%
 cd %cur_dir%
-for %%i in (%prj_dir%) do (set prj_name=%%~nxi)
-
+if "%bin_name%"=="" (
+	for %%i in (%prj_dir%) do (set bin_name=%%~nxi)
+)
 set xcb=%loader_dir%\xcb
 set zip=%loader_dir%\7za
-set output_zip=%prj_dir%\pkg\%prj_name%.aip
-set zip_files_list=appinfo .\default\%prj_name% res\ data\ lib\
-set zip_add_files_list=appinfo .\default\%prj_name%
+set output_zip=%prj_dir%\pkg\%bin_name%.aip
+set zip_files_list=appinfo .\default\%bin_name% res\ data\ lib\
+set zip_add_files_list=appinfo .\default\%bin_name%
 set make=%sdk_dir%\sdk\tools\msys\bin\make
 REM 配置计算或默认配置区-------------
 
@@ -74,7 +77,7 @@ REM 函数区======================================
 :func_prolin_pack
 echo "pack"
 echo zip=%zip%
-echo prj_name=%prj_name%
+echo bin_name=%bin_name%
 echo output_zip=%output_zip%
 echo zip_files_list=%zip_files_list%
 del /q %output_zip%
